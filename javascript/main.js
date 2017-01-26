@@ -9,6 +9,8 @@ import DFS from './dfs';
 
 $(document).ready(() => {
   const grid = new Graph($("#grid"));
+  const $newMazeBtn = document.getElementById("new-maze-btn");
+  $newMazeBtn.addEventListener("click", () => new Graph($("#grid")));
 });
 
 class Graph {
