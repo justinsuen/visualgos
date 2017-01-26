@@ -8,33 +8,19 @@ import BFS from './bfs';
 import DFS from './dfs';
 
 $(document).ready(() => {
-  const $grid = $("#grid");
-  const $selectAlgo = $("#selectAlgo");
-  let algo = null;
-
-  // switch($selectAlgo.val()) {
-  //   case "BFS":
-  //     algo = BFS;
-  //     break;
-  //   case "DFS":
-  //     algo = DFS;
-  //     break;
-  //   default:
-  //     algo = AStar;
-  //     break;
-  // }
-
-  algo = AStar;
-
-  const grid = new Graph($grid, algo);
+  const grid = new Graph($("#grid"));
 });
 
 class Graph {
-  constructor($graph, algo) {
+  constructor($graph) {
     this.$graph = $graph;
-    this.algo = algo;
+    this.algo = null;
     this.grid = [];
     this.nodes = [];
+
+    this.changeAlgo = this.changeAlgo.bind(this);
+    const $selectAlgo = document.getElementById("selectAlgo");
+    $selectAlgo.addEventListener("change", this.changeAlgo, false);
 
     $graph.empty();
 
@@ -78,6 +64,21 @@ class Graph {
 
     this.$cells = $graph.find(".grid-cell");
     this.$cells.bind("click", (e) => this.clickCell($(e.target)));
+  }
+
+  changeAlgo() {
+    const $selectAlgo = $("#selectAlgo");
+    switch($selectAlgo.val()) {
+      case "BFS":
+        this.algo = BFS;
+        return;
+      case "DFS":
+        this.algo = DFS;
+        return;
+      default:
+        this.algo = AStar;
+        return;
+    }
   }
 
   clickCell($el) {
