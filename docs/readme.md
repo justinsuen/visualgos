@@ -28,8 +28,7 @@ This project will be implemented with the following technologies:
 ## Components
 
 * `sidebar.js`: sidebar with information and buttons
-* `grid.js`: grid for start and end points (possible maze implementation for bonus)
-* `piece.js`: start and end points for users to move around
+* `grid.js`: grid with start and end points (possible maze implementation for bonus)
 
 ## Implementation Timeline
 
