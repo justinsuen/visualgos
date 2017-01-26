@@ -2,7 +2,7 @@
  * Set up grid and Graph prototype
  * NB: jQuery binded objects begin with $
  */
-import searchGraph from './search_graph';
+import SearchGraph from './search_graph';
 
 $(document).ready(() => {
   const $grid = $("#grid");
@@ -57,8 +57,8 @@ class Graph {
       nodes.push(nodeRow);
     }
 
-    this.searchGraph = new searchGraph(nodes);
-    
+    this.searchGraph = new SearchGraph(nodes);
+
     this.$cells = $graph.find(".grid-cell");
     this.$cells.bind("click", (e) => this.clickCell($(e.target)));
   }
