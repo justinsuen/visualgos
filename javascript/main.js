@@ -61,7 +61,7 @@ class Graph {
         gridRow.push($cell);
 
         const blocked = Math.floor(Math.random()*5);
-        if(blocked === 0) {
+        if(blocked === 0 && x !== 0 && y !== 0) {
           nodeRow.push(0);
           $cell.addClass("block");
         } else {
@@ -89,7 +89,6 @@ class Graph {
     this.searchGraph = new SearchGraph(this.nodes);
 
     this.$cells.removeClass("end");
-    this.$cells.removeClass("path");
     $el.addClass("end");
 
     let $start = this.$cells.filter(".start");
@@ -101,6 +100,13 @@ class Graph {
     let path = algoObj.search();
 
     this.showPath(path);
+
+    setTimeout(() => {
+      this.$cells.removeClass("path");
+      $start.removeClass("start");
+      $el.removeClass("end");
+      $el.addClass("start");
+    }, 5000);
   }
 
   getNode($el) {
