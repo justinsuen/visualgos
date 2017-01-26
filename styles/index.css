@@ -51,9 +51,23 @@ body {
 
 #content {
   display: flex;
-  flex-direction: column;
-  padding-top: 20px;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
   flex: 1;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin-right: 20px;
+  padding: 20px;
+
+  border-radius: 10px;
+  background-color: #424242;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
 #main {
@@ -64,8 +78,16 @@ body {
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
-#main h2 {
-  font-size: 150%;
+.sidebar {
+  padding: 30px;
+  font-family: "VT323";
+  color: #8CB189;
+}
+
+.sidebar h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 180%;
 }
 
 #grid {
