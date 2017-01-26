@@ -55,7 +55,7 @@ body {
   flex-direction: row;
   justify-content: center;
   margin-top: 10px;
-  padding: 20px;
+  padding: 10px;
   height: auto;
   overflow: visible;
 }
@@ -109,7 +109,7 @@ body {
 }
 
 .clicked {
-  background-color: rgb(247, 153, 43);
+  background-color: #33FF00;
 }
 
 .clear { clear: both; }
