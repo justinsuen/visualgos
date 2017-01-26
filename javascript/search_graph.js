@@ -15,6 +15,32 @@ class SearchGraph {
       }
     }
   }
+
+  neighbors(node) {
+    const allNeighbors = [];
+    const x = node.x;
+    const y = node.y;
+    const grid = this.grid;
+
+    // Manhattan neighbors
+    if (grid[x - 1] && grid[x - 1][y]) {
+      allNeighbors.push(grid[x - 1][y]);
+    }
+
+    if (grid[x + 1] && grid[x + 1][y]) {
+      allNeighbors.push(grid[x + 1][y]);
+    }
+
+    if (grid[x] && grid[x][y - 1]) {
+      allNeighbors.push(grid[x][y - 1]);
+    }
+
+    if (grid[x] && grid[x][y + 1]) {
+      allNeighbors.push(grid[x][y + 1]);
+    }
+
+    return allNeighbors;
+  }
 }
 
 export default SearchGraph;
