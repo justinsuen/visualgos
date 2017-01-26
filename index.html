@@ -20,12 +20,15 @@
   <div id="content">
     <div class="sidebar">
       <h2>Instructions</h2>
-      <label>Select an Algorithm:</label>
-      <select id="selectAlgo" name="selectAlgo">
-        <option value="AStar">A* search</option>
-        <option value="BFS">Breadth-first search</option>
-        <option value="DFS">Depth-first search</option>
-      </select>
+      <div class="options">
+        <label>Select an Algorithm:</label>
+        <select id="selectAlgo" name="selectAlgo">
+          <option value="AStar">A* search</option>
+          <option value="BFS">Breadth-first search</option>
+          <option value="DFS">Depth-first search</option>
+        </select>
+      </div>
+      <button id="new-maze-btn">New maze</button>
     </div>
     <div id="main">
       <div id="grid">Loading grid...</div>

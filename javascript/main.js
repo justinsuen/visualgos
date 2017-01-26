@@ -14,7 +14,7 @@ $(document).ready(() => {
 class Graph {
   constructor($graph) {
     this.$graph = $graph;
-    this.algo = null;
+    this.algo = AStar;
     this.grid = [];
     this.nodes = [];
 
@@ -24,6 +24,16 @@ class Graph {
 
     $graph.empty();
 
+    this.newGrid = this.newGrid.bind(this);
+    this.newGrid($graph);
+
+    this.searchGraph = new SearchGraph(this.nodes);
+
+    this.$cells = $graph.find(".grid-cell");
+    this.$cells.bind("click", (e) => this.clickCell($(e.target)));
+  }
+
+  newGrid($graph) {
     const gridSize = 30;
     const $cellTemplate = $("<div />");
 
@@ -59,11 +69,6 @@ class Graph {
       this.grid.push(gridRow);
       this.nodes.push(nodeRow);
     }
-
-    this.searchGraph = new SearchGraph(this.nodes);
-
-    this.$cells = $graph.find(".grid-cell");
-    this.$cells.bind("click", (e) => this.clickCell($(e.target)));
   }
 
   changeAlgo() {
