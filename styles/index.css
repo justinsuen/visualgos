@@ -9,8 +9,9 @@
 @import url('https://fonts.googleapis.com/css?family=VT323');
 
 html, body {
-	height:100%;
 	margin:0;
+  height: auto;
+  overflow: visible;
 }
 
 body {
@@ -53,9 +54,10 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 10px;
   padding: 20px;
-  width: 100%;
-  flex: 1;
+  height: auto;
+  overflow: visible;
 }
 
 .sidebar {
@@ -87,7 +89,8 @@ body {
 .sidebar h2 {
   margin: 0;
   padding: 0;
-  font-size: 180%;
+  font-size: 250%;
+  text-align: center;
 }
 
 #grid {
@@ -103,6 +106,10 @@ body {
 
 .grid-cell {
   border: 1px solid #0C7800;
+}
+
+.clicked {
+  background-color: rgb(247, 153, 43);
 }
 
 .clear { clear: both; }

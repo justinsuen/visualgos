@@ -51,5 +51,13 @@ class Graph {
       $graph.append($row);
       this.grid.push(gridRow);
     }
+
+    this.$cells = $graph.find(".grid-cell");
+    this.$cells.bind("click", (e) => this.clickCell($(e.target)));
+  }
+
+  clickCell($el) {
+    this.$cells.removeClass("clicked");
+    $el.addClass("clicked");
   }
 }
