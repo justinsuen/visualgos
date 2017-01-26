@@ -58,7 +58,7 @@ class AStar {
       for (let i = 0; i < neighbors.length; i++) {
         let n = neighbors[i];
 
-        if (n.closed)
+        if (n.closed || n.weight === 0)
           continue;
 
         let gScore = currNode.g + 1;

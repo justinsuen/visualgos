@@ -59,7 +59,14 @@ class Graph {
 
         $row.append($cell);
         gridRow.push($cell);
-        nodeRow.push(1); // Indicate path
+
+        const blocked = Math.floor(Math.random()*5);
+        if(blocked === 0) {
+          nodeRow.push(0);
+          $cell.addClass("block");
+        } else {
+          nodeRow.push(1); // Indicate path
+        }
       }
 
       $graph.append($row);
