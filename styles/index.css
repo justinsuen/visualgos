@@ -112,4 +112,12 @@ body {
   background-color: #33FF00;
 }
 
+.start {
+  background-color: #0030FF;
+}
+
+.path {
+  background-color: #8CB189;
+}
+
 .clear { clear: both; }

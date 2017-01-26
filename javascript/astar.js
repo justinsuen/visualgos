@@ -21,7 +21,7 @@ class AStar {
   }
 
   search() {
-    const openSet = [];
+    let openSet = [];
     const closedSet = [];
     openSet.push(this.start);
 
@@ -45,7 +45,12 @@ class AStar {
         return path.reverse();
       }
 
-      let closedNode = openSet.filter((el, ind) => ind === lowestInd);
+      let closedNode = openSet.filter((el, ind) =>{
+        return ind === lowestInd;
+      });
+
+      openSet = openSet.filter((el, ind) => ind !== lowestInd);
+
       currNode.closed = true;
       closedSet.push(closedNode);
       let neighbors = this.graph.neighbors(currNode);
@@ -59,8 +64,9 @@ class AStar {
         let gScore = currNode.g + 1;
         let bestGScore = false;
 
-        if (n.visited || gScore < n.g) {
+        if (!n.visited) {
           bestGScore = true;
+          n.visited = true;
           n.h = AStar.manhattan(n.pos, this.end.pos);
           openSet.push(n);
         } else if (gScore < n.g) {
@@ -79,8 +85,8 @@ class AStar {
   }
 
   static manhattan(p1, p2) {
-    var dx = Math.abs(p2.x - p1.x);
-    var dy = Math.abs(p2.y - p1.y);
+    const dx = Math.abs(p2.x - p1.x);
+    const dy = Math.abs(p2.y - p1.y);
     return dx + dy;
   }
 }

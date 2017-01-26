@@ -10,19 +10,21 @@ import DFS from './dfs';
 $(document).ready(() => {
   const $grid = $("#grid");
   const $selectAlgo = $("#selectAlgo");
-  const algo = null;
+  let algo = null;
 
-  switch($selectAlgo.val()) {
-    case "BFS":
-      algo = BFS.search;
-      break;
-    case "DFS":
-      algo = DFS.search;
-      break;
-    default:
-      algo = AStar.search;
-      break;
-  }
+  // switch($selectAlgo.val()) {
+  //   case "BFS":
+  //     algo = BFS;
+  //     break;
+  //   case "DFS":
+  //     algo = DFS;
+  //     break;
+  //   default:
+  //     algo = AStar;
+  //     break;
+  // }
+
+  algo = AStar;
 
   const grid = new Graph($grid, algo);
 });
@@ -32,7 +34,7 @@ class Graph {
     this.$graph = $graph;
     this.algo = algo;
     this.grid = [];
-    const nodes = [];
+    this.nodes = [];
 
     $graph.empty();
 
@@ -50,6 +52,11 @@ class Graph {
         const cellId = `cell-${x}-${y}`;
         let $cell = $cellTemplate.clone();
         $cell.attr("id", cellId).attr("x", x).attr("y", y);
+
+        if (x === 0 && y === 0) {
+          $cell.addClass("start");
+        }
+
         $row.append($cell);
         gridRow.push($cell);
         nodeRow.push(1); // Indicate path
@@ -57,10 +64,10 @@ class Graph {
 
       $graph.append($row);
       this.grid.push(gridRow);
-      nodes.push(nodeRow);
+      this.nodes.push(nodeRow);
     }
 
-    this.searchGraph = new SearchGraph(nodes);
+    this.searchGraph = new SearchGraph(this.nodes);
 
     this.$cells = $graph.find(".grid-cell");
     this.$cells.bind("click", (e) => this.clickCell($(e.target)));
@@ -68,11 +75,44 @@ class Graph {
 
   clickCell($el) {
     const goal = this.getNode($el);
+
+    if ($el.hasClass("start"))
+      return;
+
+    this.searchGraph = new SearchGraph(this.nodes);
+
     this.$cells.removeClass("clicked");
+    this.$cells.removeClass("path");
     $el.addClass("clicked");
+
+    let $start = this.$cells.filter(".start");
+    let startNode = this.getNode($start);
+    let endNode = this.getNode($el);
+
+    let algoObj = new this.algo(this.searchGraph, startNode, endNode);
+
+    let path = algoObj.search();
+
+    this.showPath(path);
   }
 
   getNode($el) {
     return this.searchGraph.grid[Number($el.attr("x"))][Number($el.attr("y"))];
+  }
+
+  getElement(node) {
+    return this.grid[node.x][node.y];
+  }
+
+  showPath(path) {
+    this.showActive(path, 0);
+  }
+
+  showActive(path, i) {
+    this.getElement(path[i]).addClass("path");
+    setTimeout(() => {
+      if (i < path.length - 2)
+        this.showActive(path, i+1);
+    }, 80);
   }
 }
