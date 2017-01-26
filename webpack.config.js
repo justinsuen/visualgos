@@ -1,9 +1,9 @@
 const webpack = require('webpack');
 
 module.exports = {
-  entry: 'javascripts/main.js',
+  entry: './javascript/main.js',
   output: {
-    path: 'javascripts',
+    path: 'javascript',
     filename: 'bundle.js',
   },
   module: {
@@ -12,7 +12,7 @@ module.exports = {
       exclude: /(node_modules)/,
       loader: 'babel',
       query: {
-        presets: ['es2015', 'react']
+        presets: ['es2015']
       }
     }],
     plugins: [
