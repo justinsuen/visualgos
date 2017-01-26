@@ -88,9 +88,9 @@ class Graph {
 
     this.searchGraph = new SearchGraph(this.nodes);
 
-    this.$cells.removeClass("clicked");
+    this.$cells.removeClass("end");
     this.$cells.removeClass("path");
-    $el.addClass("clicked");
+    $el.addClass("end");
 
     let $start = this.$cells.filter(".start");
     let startNode = this.getNode($start);

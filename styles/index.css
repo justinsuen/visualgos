@@ -1,9 +1,10 @@
 /* Colors
 *  color: #000000
-*  color: #8CB189
 *  color: #40D330
 *  color: #38912E
 *  color: #095A00
+*  path: #52FF44
+*  blocks: #8CB189
 */
 
 @import url('https://fonts.googleapis.com/css?family=VT323');
@@ -108,20 +109,20 @@ body {
   border: 1px solid #0C7800;
 }
 
-.clicked {
-  background-color: #33FF00;
+.end {
+  background-color: #FF5A36;
 }
 
 .start {
-  background-color: #0030FF;
+  background-color: #FFEB37;
 }
 
 .path {
-  background-color: #8CB189;
+  background-color: #52FF44;
 }
 
 .block {
-  background-color: #7A3700;
+  background-color: #8CB189;
 }
 
 .clear { clear: both; }
