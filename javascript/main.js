@@ -3,23 +3,26 @@
  * NB: jQuery binded objects begin with $
  */
 import SearchGraph from './search_graph';
+import AStar from './astar';
+import BFS from './bfs';
+import DFS from './dfs';
 
 $(document).ready(() => {
   const $grid = $("#grid");
   const $selectAlgo = $("#selectAlgo");
   const algo = null;
 
-  // switch($selectAlgo.val()) {
-  //   case "BFS":
-  //     algo = bfs.search;
-  //     break;
-  //   case "DFS":
-  //     algo = dfs.search;
-  //     break;
-  //   default:
-  //     algo = astar.search;
-  //     break;
-  // }
+  switch($selectAlgo.val()) {
+    case "BFS":
+      algo = BFS.search;
+      break;
+    case "DFS":
+      algo = DFS.search;
+      break;
+    default:
+      algo = AStar.search;
+      break;
+  }
 
   const grid = new Graph($grid, algo);
 });
