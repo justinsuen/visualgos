@@ -2,6 +2,7 @@
  * Set up grid and Graph prototype
  * NB: jQuery binded objects begin with $
  */
+import searchGraph from './search_graph';
 
 $(document).ready(() => {
   const $grid = $("#grid");
@@ -28,17 +29,19 @@ class Graph {
     this.$graph = $graph;
     this.algo = algo;
     this.grid = [];
+    const nodes = [];
 
     $graph.empty();
 
-    const gridSize = 40;
+    const gridSize = 30;
     const $cellTemplate = $("<div />");
 
     $cellTemplate.addClass("grid-cell").width(($graph.width() / gridSize) - 1).height(($graph.width() / gridSize) - 1);
 
     for (let x = 0; x < gridSize; x++) {
       let $row = $("<div />").addClass("grid-row");
-      let gridRow = [];
+      const gridRow = [];
+      const nodeRow = [];
 
       for (let y = 0; y < gridSize; y++) {
         const cellId = `cell-${x}-${y}`;
@@ -46,18 +49,27 @@ class Graph {
         $cell.attr("id", cellId).attr("x", x).attr("y", y);
         $row.append($cell);
         gridRow.push($cell);
+        nodeRow.push(1); // Indicate path
       }
 
       $graph.append($row);
       this.grid.push(gridRow);
+      nodes.push(nodeRow);
     }
 
+    this.searchGraph = new searchGraph(nodes);
+    
     this.$cells = $graph.find(".grid-cell");
     this.$cells.bind("click", (e) => this.clickCell($(e.target)));
   }
 
   clickCell($el) {
+    const goal = this.getNode($el);
     this.$cells.removeClass("clicked");
     $el.addClass("clicked");
+  }
+
+  getNode($el) {
+    return this.searchGraph.grid[Number($el.attr("x"))][Number($el.attr("y"))];
   }
 }
