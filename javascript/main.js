@@ -139,7 +139,7 @@ class Graph {
           this.$start.removeClass("start");
           this.$end.removeClass("end");
           this.$end.addClass("start");
-        }, this.gridSize*80);
+        }, this.path.length*50);
       }
     }, 200/this.gridSize);
   }
