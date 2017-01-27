@@ -33,7 +33,7 @@ body {
 
   font-family: "VT323";
   color: #40D330;
-  padding: 10px;
+  padding: 0 0 5px 0;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
@@ -48,8 +48,14 @@ body {
   justify-content: space-around;
 }
 
-.buttons a {
-  padding: 5px;
+a, a:visited {
+  padding: 5px 10px;
+  color: #259319;
+  font-size: 150%;
+}
+
+a:hover {
+  color: #8AF97E;
 }
 
 #content {
@@ -97,9 +103,13 @@ body {
 }
 
 .sidebar p {
-  margin: 0 0 20px 0;
+  margin: 0;
   font-size: 150%;
-  text-align: center;
+  text-align: left;
+}
+
+.sidebar .instructions {
+  margin-bottom: 20px;
 }
 
 .sidebar .options {
