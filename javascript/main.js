@@ -1,7 +1,6 @@
-/*
- * Set up grid and Graph prototype
- * NB: jQuery binded objects begin with $
- */
+// Set up grid and Graph prototype
+// jQuery binded objects begin with $
+
 import SearchGraph from './search_graph';
 import AStar from './astar';
 import BFS from './bfs';
