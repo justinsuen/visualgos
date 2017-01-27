@@ -22,7 +22,7 @@ class DFS {
     const end = this.end;
     const closedSet = [];
 
-    let stack = [[start, [start]]];
+    let stack = [[start, []]];
 
     while (stack.length > 0) {
       let currState = stack.pop();
@@ -43,6 +43,10 @@ class DFS {
 
         if (n.weight === 0)
           continue;
+
+        if (n.x === end.x && n.y === end.y) {
+          return { path: currPath.concat([n]), closedSet: closedSet.concat([currNode]) };
+        }
 
         if (!n.visited) {
           n.visited = true;
