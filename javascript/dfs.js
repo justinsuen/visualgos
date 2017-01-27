@@ -22,40 +22,37 @@ class DFS {
     const end = this.end;
     const closedSet = [];
 
-    let stack = [start];
+    let stack = [[start, [start]]];
 
     while (stack.length > 0) {
-      let currNode = stack.pop();
+      let currState = stack.pop();
+      let currNode = currState[0];
+      let currPath = currState[1];
 
       if (currNode.x === end.x && currNode.y === end.y) {
-        let path = [];
-        let curr = currNode;
-
-        while (curr.parent) {
-          path.push(curr);
-          curr = curr.parent;
-        }
-
-        return { path: path.reverse(), closedSet: closedSet };
+        return { path: currPath, closedSet: closedSet };
       }
 
-      currNode.closed = true;
-      closedSet.push(currNode);
+      if (currNode.closed) {
+        continue;
+      }
 
       let neighbors = graph.neighbors(currNode);
       for (let i = 0; i < neighbors.length; i++) {
         let n = neighbors[i];
 
-        if (n.closed || n.weight === 0)
+        if (n.weight === 0)
           continue;
 
         if (!n.visited) {
           n.visited = true;
           n.parent = currNode;
-          stack.push(n);
-          break;
+          stack.push([n, currPath.concat([n])]);
         }
       }
+
+      currNode.closed = true;
+      closedSet.push(currNode);
     }
   }
 }

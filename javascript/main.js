@@ -70,8 +70,7 @@ class Graph {
         $row.append($cell);
         gridRow.push($cell);
 
-        // const blocked = Math.floor(Math.random()*5);
-        const blocked = 1;
+        const blocked = Math.floor(Math.random()*5);
         if(blocked === 0 && x !== 0 && y !== 0) {
           nodeRow.push(0);
           $cell.addClass("block");
