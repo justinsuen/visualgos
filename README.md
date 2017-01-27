@@ -25,7 +25,7 @@ The visualizer supports different grid sizes based on user preference. The **Gen
 
 As the algorithm runs almost instantly, `setTimeout` methods were used the build the visited nodes on screen. Later, the path is also drawn with a calculated timeout.
 
-![Breadth first done](docs/images/breadth-first-done.png)
+![Breadth first done](docs/images/depth-first-done.png)
 
 After three seconds pass, the grid is cleared with the end node acting as the new start node. Here is a sample of the helper methods.
 
