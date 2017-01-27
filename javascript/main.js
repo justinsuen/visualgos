@@ -16,13 +16,10 @@ $(document).ready(() => {
 class Graph {
   constructor($graph) {
     this.$graph = $graph;
-    this.algo = AStar;
+    this.algo = this.checkAlgo();
+    this.gridSize = $("#selectGridSize").val();
     this.grid = [];
     this.nodes = [];
-
-    this.changeAlgo = this.changeAlgo.bind(this);
-    const $selectAlgo = document.getElementById("selectAlgo");
-    $selectAlgo.addEventListener("change", this.changeAlgo, false);
 
     $graph.empty();
 
@@ -36,7 +33,7 @@ class Graph {
   }
 
   newGrid($graph) {
-    const gridSize = 30;
+    const gridSize = this.gridSize;
     const $cellTemplate = $("<div />");
 
     $cellTemplate.addClass("grid-cell").width(($graph.width() / gridSize) - 1).height(($graph.width() / gridSize) - 1);
@@ -73,18 +70,15 @@ class Graph {
     }
   }
 
-  changeAlgo() {
+  checkAlgo() {
     const $selectAlgo = $("#selectAlgo");
     switch($selectAlgo.val()) {
       case "BFS":
-        this.algo = BFS;
-        return;
+        return BFS;
       case "DFS":
-        this.algo = DFS;
-        return;
+        return DFS;
       default:
-        this.algo = AStar;
-        return;
+        return AStar;
     }
   }
 
@@ -129,7 +123,7 @@ class Graph {
     setTimeout(() => {
       if (i < path.length - 2)
         this.showActive(path, i+1);
-    }, 80);
+    }, 800/this.gridSize);
   }
 
   highlightClosed(closedSet, i) {
@@ -145,8 +139,8 @@ class Graph {
           this.$start.removeClass("start");
           this.$end.removeClass("end");
           this.$end.addClass("start");
-        }, 5000);
+        }, this.gridSize*80);
       }
-    }, 20);
+    }, 200/this.gridSize);
   }
 }

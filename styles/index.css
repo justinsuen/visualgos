@@ -101,7 +101,7 @@ body {
 }
 
 .sidebar .options select {
-  margin-top: 10px;
+  margin: 10px 0px;
   width: 100%;
   font-size: 80%;
 }
