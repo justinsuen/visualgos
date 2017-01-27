@@ -149,3 +149,14 @@ for (let i = 0; i < neighbors.length; i++) {
   }
 }
 ```
+
+## Future
+
+Here are some features that I would like to implement in the future:
+- [ ] Node weights
+- [ ] Weighted path finding with Kruskal's, Dijkstra's, and Prim's
+- [ ] User drawable mazes and setting start/end points
+- [ ] User selectable block frequency
+- [ ] Different heuristics and allowing diagonals
+- [ ] Information on algorithm runtime, resources, and code snippet
+- [ ] Fix known bug of user double clicking
