@@ -148,7 +148,6 @@ class Graph {
         this.highlightClosed(closedSet, i+1);
       else {
         this.showPath(this.path);
-        console.log(this.path.length);
         setTimeout(() => {
           this.$cells.removeClass("path");
           this.$cells.removeClass("closed");

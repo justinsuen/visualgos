@@ -2,6 +2,9 @@
 // Depth first search starts at the tree root of a graph, and explores
 // as far as possible along each branch before backtracking to neighbors
 // branches.
+//
+// This version is a little bit hybrid-like... It checks neighbors to see
+// if any of them are the end nodes just in case.
 
 class DFS {
   constructor(graph, start, end) {
