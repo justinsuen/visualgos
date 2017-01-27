@@ -148,13 +148,14 @@ class Graph {
         this.highlightClosed(closedSet, i+1);
       else {
         this.showPath(this.path);
+        console.log(this.path.length);
         setTimeout(() => {
           this.$cells.removeClass("path");
           this.$cells.removeClass("closed");
           this.$start.removeClass("start");
           this.$end.removeClass("end");
           this.$end.addClass("start");
-        }, this.path.length*50);
+        }, 3000 + ((800/this.gridSize)*this.path.length));
       }
     }, 200/this.gridSize);
   }
