@@ -51,7 +51,7 @@ class AStar {
       openSet = openSet.filter((el, ind) => ind !== lowestInd);
 
       currNode.closed = true;
-      closedSet.push(closedNode);
+      closedSet.push(closedNode[0]);
       let neighbors = this.graph.neighbors(currNode);
 
       for (let i = 0; i < neighbors.length; i++) {

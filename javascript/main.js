@@ -126,7 +126,7 @@ class Graph {
   }
 
   highlightClosed(closedSet, i) {
-    this.getElement(closedSet[i][0]).addClass("closed");
+    this.getElement(closedSet[i]).addClass("closed");
     setTimeout(() => {
       if (i < closedSet.length - 1)
         this.highlightClosed(closedSet, i+1);

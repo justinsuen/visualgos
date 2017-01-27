@@ -27,7 +27,7 @@ class BFS {
     while (queue.length > 0) {
       let currNode = queue.shift();
 
-      if (currNode.pos.x === end.pos.x && currNode.pos.y === end.pos.y) {
+      if (currNode.x === end.x && currNode.y === end.y) {
         let path = [];
         let curr = currNode;
 
@@ -39,14 +39,20 @@ class BFS {
         return { path: path.reverse(), closedSet: closedSet };
       }
 
+      currNode.closed = true;
       closedSet.push(currNode);
 
       let neighbors = graph.neighbors(currNode);
       for (let i = 0; i < neighbors.length; i++) {
-        if (!neighbors[i].visited) {
-          neighbors[i].visited = true;
-          neighbors[i].parent = currNode;
-          queue.push(neighbors[i]);
+        let n = neighbors[i];
+
+        if (n.closed || n.weight === 0)
+          continue;
+
+        if (!n.visited) {
+          n.visited = true;
+          n.parent = currNode;
+          queue.push(n);
         }
       }
     }
