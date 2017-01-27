@@ -16,7 +16,7 @@ class Graph {
   constructor($graph) {
     this.$graph = $graph;
 
-    this.algo = AStar;
+    this.algo = this.checkAlgo();
     const $algo = document.getElementById("selectAlgo");
     $algo.addEventListener("change", e => {
       switch(e.target.value) {
@@ -70,7 +70,8 @@ class Graph {
         $row.append($cell);
         gridRow.push($cell);
 
-        const blocked = Math.floor(Math.random()*5);
+        // const blocked = Math.floor(Math.random()*5);
+        const blocked = 1;
         if(blocked === 0 && x !== 0 && y !== 0) {
           nodeRow.push(0);
           $cell.addClass("block");
@@ -82,6 +83,18 @@ class Graph {
       $graph.append($row);
       this.grid.push(gridRow);
       this.nodes.push(nodeRow);
+    }
+  }
+
+  checkAlgo() {
+    const $selectAlgo = $("#selectAlgo");
+    switch($selectAlgo.val()) {
+      case "BFS":
+        return BFS;
+      case "DFS":
+        return DFS;
+      default:
+        return AStar;
     }
   }
 
