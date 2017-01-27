@@ -15,7 +15,23 @@ $(document).ready(() => {
 class Graph {
   constructor($graph) {
     this.$graph = $graph;
-    this.algo = this.checkAlgo();
+
+    this.algo = AStar;
+    const $algo = document.getElementById("selectAlgo");
+    $algo.addEventListener("change", e => {
+      switch(e.target.value) {
+        case "BFS":
+          this.algo = BFS;
+          break;
+        case "DFS":
+          this.algo = DFS;
+          break;
+        default:
+          this.algo = AStar;
+          break;
+      }
+    });
+
     this.gridSize = $("#selectGridSize").val();
     this.grid = [];
     this.nodes = [];
@@ -66,18 +82,6 @@ class Graph {
       $graph.append($row);
       this.grid.push(gridRow);
       this.nodes.push(nodeRow);
-    }
-  }
-
-  checkAlgo() {
-    const $selectAlgo = $("#selectAlgo");
-    switch($selectAlgo.val()) {
-      case "BFS":
-        return BFS;
-      case "DFS":
-        return DFS;
-      default:
-        return AStar;
     }
   }
 
