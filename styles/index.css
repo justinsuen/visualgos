@@ -113,6 +113,10 @@ body {
   font-size: 80%;
 }
 
+select:focus, select:active, button:focus, button:active {
+  outline: none;
+}
+
 #new-maze-btn {
   width: 100%;
   font-size: 150%;
@@ -165,11 +169,11 @@ body {
 }
 
 .start {
-  background-color: #FFEB37;
+  background-color: #E337FF;
 }
 
 .closed {
-  background-color: rgba(93, 182, 255, 0.5);
+  background-color: rgba(93, 124, 255, 0.5);
 }
 
 .path {
