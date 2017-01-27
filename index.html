@@ -20,7 +20,18 @@
   <div id="content">
     <div class="sidebar">
       <h2>Instructions</h2>
+      <p>Select an algorithm and click on the grid to visualize!</p>
       <div class="options">
+        <div class="legend">
+          <label>Legend:</label>
+          <ul>
+            <li><div class="lgd-cell start"></div><p>Start</p></li>
+            <li><div class="lgd-cell end"></div><p>End</p></li>
+            <li><div class="lgd-cell closed"></div><p>Visited</p></li>
+            <li><div class="lgd-cell path"></div><p>Path</p></li>
+            <li><div class="lgd-cell blocked"></div><p>Blocked</p></li>
+          </ul>
+        </div>
         <label>Algorithm:</label>
         <select id="selectAlgo" name="selectAlgo">
           <option value="AStar">A* search</option>

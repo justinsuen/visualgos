@@ -21,6 +21,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   background-color: #C9C9C9;
+  width: 100%;
 }
 
 #header {
@@ -81,7 +82,7 @@ body {
 
   padding: 30px;
   font-family: "VT323";
-  color: #79C473;
+  color: #68AB63;
 
   border-radius: 10px;
   background-color: #FFFFFF;
@@ -92,6 +93,12 @@ body {
   margin: 0 0 20px 0;
   padding: 0;
   font-size: 280%;
+  text-align: center;
+}
+
+.sidebar p {
+  margin: 0 0 20px 0;
+  font-size: 150%;
   text-align: center;
 }
 
@@ -122,8 +129,35 @@ body {
   justify-content: flex-start;
 }
 
-.grid-cell {
+.grid-cell, .lgd-cell {
   border: 1px solid #0C7800;
+}
+
+.legend ul {
+  margin: 15px 0 15px 10px;
+  padding: 0;
+}
+
+.legend li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 0 5px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend li p {
+  margin: 0;
+  padding: 0;
+  font-size: 90%;
+  color: #148707;
+}
+
+.lgd-cell {
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
 }
 
 .end {
