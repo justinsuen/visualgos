@@ -134,6 +134,10 @@ body {
   background-color: #FFEB37;
 }
 
+.closed {
+  background-color: rgba(93, 182, 255, 0.5);
+}
+
 .path {
   background-color: #52FF44;
 }
@@ -141,5 +145,6 @@ body {
 .block {
   background-color: #556A54;
 }
+
 
 .clear { clear: both; }

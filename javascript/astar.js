@@ -5,10 +5,11 @@
 //   path from n to the goal
 
 class AStar {
-  constructor(graph, start, end) {
+  constructor(graph, start, end, grid) {
     this.start = start;
     this.end = end;
     this.graph = graph;
+    this.grid = grid;
 
     for (let x = 0; x < this.graph.length; x++) {
       for (let y = 0; y < this.graph[x].length; y++) {
@@ -42,12 +43,10 @@ class AStar {
           curr = curr.parent;
         }
 
-        return path.reverse();
+        return { path: path.reverse(), closedSet: closedSet };
       }
 
-      let closedNode = openSet.filter((el, ind) =>{
-        return ind === lowestInd;
-      });
+      let closedNode = openSet.filter((el, ind) => ind === lowestInd);
 
       openSet = openSet.filter((el, ind) => ind !== lowestInd);
 

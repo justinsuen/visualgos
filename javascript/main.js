@@ -89,6 +89,7 @@ class Graph {
   }
 
   clickCell($el) {
+    this.$end = $el;
     const goal = this.getNode($el);
 
     if ($el.hasClass("start"))
@@ -99,22 +100,16 @@ class Graph {
     this.$cells.removeClass("end");
     $el.addClass("end");
 
-    let $start = this.$cells.filter(".start");
-    let startNode = this.getNode($start);
+    this.$start = this.$cells.filter(".start");
+    let startNode = this.getNode(this.$start);
     let endNode = this.getNode($el);
 
-    let algoObj = new this.algo(this.searchGraph, startNode, endNode);
+    let algoObj = new this.algo(this.searchGraph, startNode, endNode, this.grid);
 
-    let path = algoObj.search();
+    let { path, closedSet } = algoObj.search();
+    this.path = path;
 
-    this.showPath(path);
-
-    setTimeout(() => {
-      this.$cells.removeClass("path");
-      $start.removeClass("start");
-      $el.removeClass("end");
-      $el.addClass("start");
-    }, 5000);
+    this.highlightClosed(closedSet, 1);
   }
 
   getNode($el) {
@@ -135,5 +130,23 @@ class Graph {
       if (i < path.length - 2)
         this.showActive(path, i+1);
     }, 80);
+  }
+
+  highlightClosed(closedSet, i) {
+    this.getElement(closedSet[i][0]).addClass("closed");
+    setTimeout(() => {
+      if (i < closedSet.length - 1)
+        this.highlightClosed(closedSet, i+1);
+      else {
+        this.showPath(this.path);
+        setTimeout(() => {
+          this.$cells.removeClass("path");
+          this.$cells.removeClass("closed");
+          this.$start.removeClass("start");
+          this.$end.removeClass("end");
+          this.$end.addClass("start");
+        }, 5000);
+      }
+    }, 20);
   }
 }
