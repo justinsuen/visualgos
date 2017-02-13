@@ -1,2 +1,655 @@
-!function(t){function e(n){if(r[n])return r[n].exports;var i=r[n]={exports:{},id:n,loaded:!1};return t[n].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var r={};return e.m=t,e.c=r,e.p="",e(0)}([function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var a=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),s=r(1),o=n(s),h=r(3),u=n(h),l=r(4),c=n(l),f=r(5),d=n(f);$(document).ready(function(){var t=(new p($("#grid")),document.getElementById("new-maze-btn"));t.addEventListener("click",function(){return new p($("#grid"))})});var p=function(){function t(e){var r=this;i(this,t),this.$graph=e,this.algo=this.checkAlgo();var n=document.getElementById("selectAlgo");n.addEventListener("change",function(t){switch(t.target.value){case"BFS":r.algo=c.default;break;case"DFS":r.algo=d.default;break;default:r.algo=u.default}}),this.gridSize=$("#selectGridSize").val(),this.grid=[],this.nodes=[],e.empty(),this.newGrid=this.newGrid.bind(this),this.newGrid(e),this.searchGraph=new o.default(this.nodes),this.$cells=e.find(".grid-cell"),this.$cells.bind("click",function(t){return r.clickCell($(t.target))})}return a(t,[{key:"newGrid",value:function(t){var e=this.gridSize,r=$("<div />");r.addClass("grid-cell").width(t.width()/e-1).height(t.width()/e-1);for(var n=0;n<e;n++){for(var i=$("<div />").addClass("grid-row"),a=[],s=[],o=0;o<e;o++){var h="cell-"+n+"-"+o,u=r.clone();u.attr("id",h).attr("x",n).attr("y",o),0===n&&0===o&&u.addClass("start"),i.append(u),a.push(u);var l=Math.floor(5*Math.random());0===l&&0!==n&&0!==o?(s.push(0),u.addClass("block")):s.push(1)}t.append(i),this.grid.push(a),this.nodes.push(s)}}},{key:"checkAlgo",value:function(){var t=$("#selectAlgo");switch(t.val()){case"BFS":return c.default;case"DFS":return d.default;default:return u.default}}},{key:"clickCell",value:function(t){this.$end=t;this.getNode(t);if(!t.hasClass("start")){this.searchGraph=new o.default(this.nodes),this.$cells.removeClass("end"),t.addClass("end"),this.$start=this.$cells.filter(".start");var e=this.getNode(this.$start),r=this.getNode(t),n=new this.algo(this.searchGraph,e,r,this.grid),i=n.search(),a=i.path,s=i.closedSet;this.path=a,this.highlightClosed(s,1)}}},{key:"getNode",value:function(t){return this.searchGraph.grid[Number(t.attr("x"))][Number(t.attr("y"))]}},{key:"getElement",value:function(t){return this.grid[t.x][t.y]}},{key:"showPath",value:function(t){this.showActive(t,0)}},{key:"showActive",value:function(t,e){var r=this;this.getElement(t[e]).addClass("path"),setTimeout(function(){e<t.length-2&&r.showActive(t,e+1)},800/this.gridSize)}},{key:"highlightClosed",value:function(t,e){var r=this;this.getElement(t[e]).addClass("closed"),setTimeout(function(){e<t.length-1?r.highlightClosed(t,e+1):(r.showPath(r.path),setTimeout(function(){r.$cells.removeClass("path"),r.$cells.removeClass("closed"),r.$start.removeClass("start"),r.$end.removeClass("end"),r.$end.addClass("start")},3e3+800/r.gridSize*r.path.length))},200/this.gridSize)}}]),t}()},function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var a=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),s=r(2),o=n(s),h=function(){function t(e){i(this,t),this.nodes=[],this.grid=[];for(var r=0;r<e.length;r++){this.grid[r]=[];for(var n=0,a=e[r];n<a.length;n++){var s=new o.default(r,n,a[n]);this.grid[r][n]=s,this.nodes.push(s)}}}return a(t,[{key:"neighbors",value:function(t){var e=[],r=t.x,n=t.y,i=this.grid;return i[r-1]&&i[r-1][n]&&e.push(i[r-1][n]),i[r+1]&&i[r+1][n]&&e.push(i[r+1][n]),i[r]&&i[r][n-1]&&e.push(i[r][n-1]),i[r]&&i[r][n+1]&&e.push(i[r][n+1]),e}}]),t}();e.default=h},function(t,e){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var n=function t(e,n,i){r(this,t),this.x=e,this.y=n,this.pos={x:this.x,y:this.y},this.weight=i,this.f=0,this.g=0,this.h=0,this.visited=!1,this.closed=!1,this.parent=null};e.default=n},function(t,e){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},i=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),a=function(){function t(e,n,i,a){r(this,t),this.start=n,this.end=i,this.graph=e,this.grid=a;for(var s=0;s<this.graph.length;s++)for(var o=0;o<this.graph[s].length;o++)this.graph[s][o].f=0,this.graph[s][o].g=0,this.graph[s][o].h=0,this.graph[s][o].parent=null}return i(t,[{key:"search",value:function(){var e=this,r=[],i=[];r.push(this.start);for(var a=function(){for(var n=0,a=0;a<r.length;a++)r[a].f<r[n].f&&(n=a);var s=r[n];if(s.x===e.end.x&&s.y===e.end.y){for(var o=s,h=[];o.parent;)h.push(o),o=o.parent;return{v:{path:h.reverse(),closedSet:i}}}var u=r.filter(function(t,e){return e===n});r=r.filter(function(t,e){return e!==n}),s.closed=!0,i.push(u[0]);for(var l=e.graph.neighbors(s),c=0;c<l.length;c++){var f=l[c];if(!f.closed&&0!==f.weight){var d=s.g+1,p=!1;f.visited?d<f.g&&(p=!0):(p=!0,f.visited=!0,f.h=t.manhattan(f.pos,e.end.pos),r.push(f)),p&&(f.parent=s,f.g=d,f.f=f.g+f.h)}}};r.length>0;){var s=a();if("object"===("undefined"==typeof s?"undefined":n(s)))return s.v}return[]}}],[{key:"manhattan",value:function(t,e){var r=Math.abs(e.x-t.x),n=Math.abs(e.y-t.y);return r+n}}]),t}();e.default=a},function(t,e){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var n=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),i=function(){function t(e,n,i){r(this,t),this.start=n,this.end=i,this.graph=e;for(var a=0;a<this.graph.length;a++)for(var s=0;s<this.graph[a].length;s++)this.graph[a][s].parent=null,this.graph[a][s].visited=!1}return n(t,[{key:"search",value:function(){for(var t=this.graph,e=this.start,r=this.end,n=[],i=[e];i.length>0;){var a=i.shift();if(a.x===r.x&&a.y===r.y){for(var s=[],o=a;o.parent;)s.push(o),o=o.parent;return{path:s.reverse(),closedSet:n}}a.closed=!0,n.push(a);for(var h=t.neighbors(a),u=0;u<h.length;u++){var l=h[u];l.closed||0===l.weight||l.visited||(l.visited=!0,l.parent=a,i.push(l))}}}}]),t}();e.default=i},function(t,e){"use strict";function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var n=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),i=function(){function t(e,n,i){r(this,t),this.start=n,this.end=i,this.graph=e;for(var a=0;a<this.graph.length;a++)for(var s=0;s<this.graph[a].length;s++)this.graph[a][s].parent=null}return n(t,[{key:"search",value:function(){for(var t=this.graph,e=this.start,r=this.end,n=[],i=[[e,[]]];i.length>0;){var a=i.pop(),s=a[0],o=a[1];if(s.x===r.x&&s.y===r.y)return{path:o,closedSet:n};if(!s.closed){for(var h=t.neighbors(s),u=0;u<h.length;u++){var l=h[u];if(0!==l.weight){if(l.x===r.x&&l.y===r.y)return{path:o.concat([l]),closedSet:n.concat([s])};l.visited||(l.visited=!0,l.parent=s,i.push([l,o.concat([l])]))}}s.closed=!0,n.push(s)}}}}]),t}();e.default=i}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); // Set up grid and Graph prototype
+	// jQuery binded objects begin with $
+	
+	var _search_graph = __webpack_require__(1);
+	
+	var _search_graph2 = _interopRequireDefault(_search_graph);
+	
+	var _astar = __webpack_require__(3);
+	
+	var _astar2 = _interopRequireDefault(_astar);
+	
+	var _bfs = __webpack_require__(4);
+	
+	var _bfs2 = _interopRequireDefault(_bfs);
+	
+	var _dfs = __webpack_require__(5);
+	
+	var _dfs2 = _interopRequireDefault(_dfs);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	$(document).ready(function () {
+	  var grid = new Graph($("#grid"));
+	  var $newMazeBtn = document.getElementById("new-maze-btn");
+	  $newMazeBtn.addEventListener("click", function () {
+	    return new Graph($("#grid"));
+	  });
+	});
+	
+	var Graph = function () {
+	  function Graph($graph) {
+	    var _this = this;
+	
+	    _classCallCheck(this, Graph);
+	
+	    this.$graph = $graph;
+	
+	    this.algo = this.checkAlgo();
+	    var $algo = document.getElementById("selectAlgo");
+	    $algo.addEventListener("change", function (e) {
+	      switch (e.target.value) {
+	        case "BFS":
+	          _this.algo = _bfs2.default;
+	          break;
+	        case "DFS":
+	          _this.algo = _dfs2.default;
+	          break;
+	        default:
+	          _this.algo = _astar2.default;
+	          break;
+	      }
+	    });
+	
+	    this.gridSize = $("#selectGridSize").val();
+	    this.grid = [];
+	    this.nodes = [];
+	
+	    $graph.empty();
+	
+	    this.newGrid = this.newGrid.bind(this);
+	    this.newGrid($graph);
+	
+	    this.searchGraph = new _search_graph2.default(this.nodes);
+	
+	    this.$cells = $graph.find(".grid-cell");
+	    this.$cells.bind("click", function (e) {
+	      return _this.clickCell($(e.target));
+	    });
+	  }
+	
+	  _createClass(Graph, [{
+	    key: 'newGrid',
+	    value: function newGrid($graph) {
+	      var gridSize = this.gridSize;
+	      var $cellTemplate = $("<div />");
+	
+	      $cellTemplate.addClass("grid-cell").width($graph.width() / gridSize - 1).height($graph.width() / gridSize - 1);
+	
+	      for (var x = 0; x < gridSize; x++) {
+	        var $row = $("<div />").addClass("grid-row");
+	        var gridRow = [];
+	        var nodeRow = [];
+	
+	        for (var y = 0; y < gridSize; y++) {
+	          var cellId = 'cell-' + x + '-' + y;
+	          var $cell = $cellTemplate.clone();
+	          $cell.attr("id", cellId).attr("x", x).attr("y", y);
+	
+	          if (x === 0 && y === 0) {
+	            $cell.addClass("start");
+	          }
+	
+	          $row.append($cell);
+	          gridRow.push($cell);
+	
+	          var blocked = Math.floor(Math.random() * 5);
+	          if (blocked === 0 && x !== 0 && y !== 0) {
+	            nodeRow.push(0);
+	            $cell.addClass("block");
+	          } else {
+	            nodeRow.push(1); // Indicate path
+	          }
+	        }
+	
+	        $graph.append($row);
+	        this.grid.push(gridRow);
+	        this.nodes.push(nodeRow);
+	      }
+	    }
+	  }, {
+	    key: 'checkAlgo',
+	    value: function checkAlgo() {
+	      var $selectAlgo = $("#selectAlgo");
+	      switch ($selectAlgo.val()) {
+	        case "BFS":
+	          return _bfs2.default;
+	        case "DFS":
+	          return _dfs2.default;
+	        default:
+	          return _astar2.default;
+	      }
+	    }
+	  }, {
+	    key: 'clickCell',
+	    value: function clickCell($el) {
+	      this.$end = $el;
+	      var goal = this.getNode($el);
+	
+	      if ($el.hasClass("start")) return;
+	
+	      this.searchGraph = new _search_graph2.default(this.nodes);
+	
+	      this.$cells.removeClass("end");
+	      $el.addClass("end");
+	
+	      this.$start = this.$cells.filter(".start");
+	      var startNode = this.getNode(this.$start);
+	      var endNode = this.getNode($el);
+	
+	      var algoObj = new this.algo(this.searchGraph, startNode, endNode, this.grid);
+	
+	      var _algoObj$search = algoObj.search(),
+	          path = _algoObj$search.path,
+	          closedSet = _algoObj$search.closedSet;
+	
+	      this.path = path;
+	
+	      this.highlightClosed(closedSet, 1);
+	    }
+	  }, {
+	    key: 'getNode',
+	    value: function getNode($el) {
+	      return this.searchGraph.grid[Number($el.attr("x"))][Number($el.attr("y"))];
+	    }
+	  }, {
+	    key: 'getElement',
+	    value: function getElement(node) {
+	      return this.grid[node.x][node.y];
+	    }
+	  }, {
+	    key: 'showPath',
+	    value: function showPath(path) {
+	      this.showActive(path, 0);
+	    }
+	  }, {
+	    key: 'showActive',
+	    value: function showActive(path, i) {
+	      var _this2 = this;
+	
+	      this.getElement(path[i]).addClass("path");
+	      setTimeout(function () {
+	        if (i < path.length - 2) _this2.showActive(path, i + 1);
+	      }, 800 / this.gridSize);
+	    }
+	  }, {
+	    key: 'highlightClosed',
+	    value: function highlightClosed(closedSet, i) {
+	      var _this3 = this;
+	
+	      this.getElement(closedSet[i]).addClass("closed");
+	      setTimeout(function () {
+	        if (i < closedSet.length - 1) _this3.highlightClosed(closedSet, i + 1);else {
+	          _this3.showPath(_this3.path);
+	          setTimeout(function () {
+	            _this3.$cells.removeClass("path");
+	            _this3.$cells.removeClass("closed");
+	            _this3.$start.removeClass("start");
+	            _this3.$end.removeClass("end");
+	            _this3.$end.addClass("start");
+	          }, 3000 + 800 / _this3.gridSize * _this3.path.length);
+	        }
+	      }, 200 / this.gridSize);
+	    }
+	  }]);
+
+	  return Graph;
+	}();
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _graph_node = __webpack_require__(2);
+	
+	var _graph_node2 = _interopRequireDefault(_graph_node);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var SearchGraph = function () {
+	  function SearchGraph(nodes) {
+	    _classCallCheck(this, SearchGraph);
+	
+	    this.nodes = [];
+	    this.grid = [];
+	
+	    for (var x = 0; x < nodes.length; x++) {
+	      this.grid[x] = [];
+	
+	      for (var y = 0, row = nodes[x]; y < row.length; y++) {
+	        var node = new _graph_node2.default(x, y, row[y]);
+	        this.grid[x][y] = node;
+	        this.nodes.push(node);
+	      }
+	    }
+	  }
+	
+	  _createClass(SearchGraph, [{
+	    key: "neighbors",
+	    value: function neighbors(node) {
+	      var allNeighbors = [];
+	      var x = node.x;
+	      var y = node.y;
+	      var grid = this.grid;
+	
+	      // Manhattan neighbors
+	      if (grid[x - 1] && grid[x - 1][y]) {
+	        allNeighbors.push(grid[x - 1][y]);
+	      }
+	
+	      if (grid[x + 1] && grid[x + 1][y]) {
+	        allNeighbors.push(grid[x + 1][y]);
+	      }
+	
+	      if (grid[x] && grid[x][y - 1]) {
+	        allNeighbors.push(grid[x][y - 1]);
+	      }
+	
+	      if (grid[x] && grid[x][y + 1]) {
+	        allNeighbors.push(grid[x][y + 1]);
+	      }
+	
+	      return allNeighbors;
+	    }
+	  }]);
+	
+	  return SearchGraph;
+	}();
+	
+	exports.default = SearchGraph;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var GraphNode = function GraphNode(x, y, weight) {
+	  _classCallCheck(this, GraphNode);
+	
+	  this.x = x;
+	  this.y = y;
+	  this.pos = { x: this.x, y: this.y };
+	  this.weight = weight;
+	
+	  this.f = 0;
+	  this.g = 0;
+	  this.h = 0;
+	
+	  this.visited = false;
+	  this.closed = false;
+	  this.parent = null;
+	};
+	
+	exports.default = GraphNode;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// Implemented with the pseudocode from https://en.wikipedia.org/wiki/A*_search_algorithm
+	// A* selects a path that minimizes f(n) = g(n) + h(n) where
+	//   g(n) is the cost of the path from the start node to n
+	//   h(n) is a heuristic that estimates the cost of the cheapest
+	//   path from n to the goal
+	
+	var AStar = function () {
+	  function AStar(graph, start, end, grid) {
+	    _classCallCheck(this, AStar);
+	
+	    this.start = start;
+	    this.end = end;
+	    this.graph = graph;
+	    this.grid = grid;
+	
+	    for (var x = 0; x < this.graph.length; x++) {
+	      for (var y = 0; y < this.graph[x].length; y++) {
+	        this.graph[x][y].f = 0;
+	        this.graph[x][y].g = 0;
+	        this.graph[x][y].h = 0;
+	        this.graph[x][y].parent = null;
+	      }
+	    }
+	  }
+	
+	  _createClass(AStar, [{
+	    key: "search",
+	    value: function search() {
+	      var _this = this;
+	
+	      var openSet = [];
+	      var closedSet = [];
+	      openSet.push(this.start);
+	
+	      var _loop = function _loop() {
+	        var lowestInd = 0;
+	        for (var i = 0; i < openSet.length; i++) {
+	          if (openSet[i].f < openSet[lowestInd].f) lowestInd = i;
+	        }
+	
+	        var currNode = openSet[lowestInd];
+	        if (currNode.x === _this.end.x && currNode.y === _this.end.y) {
+	          var curr = currNode;
+	          var path = [];
+	
+	          while (curr.parent) {
+	            path.push(curr);
+	            curr = curr.parent;
+	          }
+	
+	          return {
+	            v: { path: path.reverse(), closedSet: closedSet }
+	          };
+	        }
+	
+	        var closedNode = openSet.filter(function (el, ind) {
+	          return ind === lowestInd;
+	        });
+	
+	        openSet = openSet.filter(function (el, ind) {
+	          return ind !== lowestInd;
+	        });
+	
+	        currNode.closed = true;
+	        closedSet.push(closedNode[0]);
+	        var neighbors = _this.graph.neighbors(currNode);
+	
+	        for (var _i = 0; _i < neighbors.length; _i++) {
+	          var n = neighbors[_i];
+	
+	          if (n.closed || n.weight === 0) continue;
+	
+	          var gScore = currNode.g + 1;
+	          var bestGScore = false;
+	
+	          if (!n.visited) {
+	            bestGScore = true;
+	            n.visited = true;
+	            n.h = AStar.manhattan(n.pos, _this.end.pos);
+	            openSet.push(n);
+	          } else if (gScore < n.g) {
+	            bestGScore = true;
+	          }
+	
+	          if (bestGScore) {
+	            n.parent = currNode;
+	            n.g = gScore;
+	            n.f = n.g + n.h;
+	          }
+	        }
+	      };
+	
+	      while (openSet.length > 0) {
+	        var _ret = _loop();
+	
+	        if ((typeof _ret === "undefined" ? "undefined" : _typeof(_ret)) === "object") return _ret.v;
+	      }
+	
+	      return [];
+	    }
+	  }], [{
+	    key: "manhattan",
+	    value: function manhattan(p1, p2) {
+	      var dx = Math.abs(p2.x - p1.x);
+	      var dy = Math.abs(p2.y - p1.y);
+	      return dx + dy;
+	    }
+	  }]);
+	
+	  return AStar;
+	}();
+	
+	exports.default = AStar;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// Implemented with the pseudocode from https://en.wikipedia.org/wiki/Breadth-first_search
+	// Breadth first search starts at the tree root of a graph, and explores
+	// the neighbor nodes first, before moving to the next level neighbors.
+	
+	var BFS = function () {
+	  function BFS(graph, start, end) {
+	    _classCallCheck(this, BFS);
+	
+	    this.start = start;
+	    this.end = end;
+	    this.graph = graph;
+	
+	    for (var x = 0; x < this.graph.length; x++) {
+	      for (var y = 0; y < this.graph[x].length; y++) {
+	        this.graph[x][y].parent = null;
+	        this.graph[x][y].visited = false;
+	      }
+	    }
+	  }
+	
+	  _createClass(BFS, [{
+	    key: "search",
+	    value: function search() {
+	      var graph = this.graph;
+	      var start = this.start;
+	      var end = this.end;
+	      var closedSet = [];
+	
+	      var queue = [start];
+	
+	      while (queue.length > 0) {
+	        var currNode = queue.shift();
+	
+	        if (currNode.x === end.x && currNode.y === end.y) {
+	          var path = [];
+	          var curr = currNode;
+	
+	          while (curr.parent) {
+	            path.push(curr);
+	            curr = curr.parent;
+	          }
+	
+	          return { path: path.reverse(), closedSet: closedSet };
+	        }
+	
+	        currNode.closed = true;
+	        closedSet.push(currNode);
+	
+	        var neighbors = graph.neighbors(currNode);
+	        for (var i = 0; i < neighbors.length; i++) {
+	          var n = neighbors[i];
+	
+	          if (n.closed || n.weight === 0) continue;
+	
+	          if (!n.visited) {
+	            n.visited = true;
+	            n.parent = currNode;
+	            queue.push(n);
+	          }
+	        }
+	      }
+	    }
+	  }]);
+	
+	  return BFS;
+	}();
+	
+	exports.default = BFS;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// Implemented with the pseudocode from https://en.wikipedia.org/wiki/Depth-first_search
+	// Depth first search starts at the tree root of a graph, and explores
+	// as far as possible along each branch before backtracking to neighbors
+	// branches.
+	//
+	// This version is a little bit hybrid-like... It checks neighbors to see
+	// if any of them are the end nodes just in case.
+	
+	var DFS = function () {
+	  function DFS(graph, start, end) {
+	    _classCallCheck(this, DFS);
+	
+	    this.start = start;
+	    this.end = end;
+	    this.graph = graph;
+	
+	    for (var x = 0; x < this.graph.length; x++) {
+	      for (var y = 0; y < this.graph[x].length; y++) {
+	        this.graph[x][y].parent = null;
+	      }
+	    }
+	  }
+	
+	  _createClass(DFS, [{
+	    key: "search",
+	    value: function search() {
+	      var graph = this.graph;
+	      var start = this.start;
+	      var end = this.end;
+	      var closedSet = [];
+	
+	      var stack = [[start, []]];
+	
+	      while (stack.length > 0) {
+	        var currState = stack.pop();
+	        var currNode = currState[0];
+	        var currPath = currState[1];
+	
+	        if (currNode.x === end.x && currNode.y === end.y) {
+	          return { path: currPath, closedSet: closedSet };
+	        }
+	
+	        if (currNode.closed) {
+	          continue;
+	        }
+	
+	        var neighbors = graph.neighbors(currNode);
+	        for (var i = 0; i < neighbors.length; i++) {
+	          var n = neighbors[i];
+	
+	          if (n.weight === 0) continue;
+	
+	          if (n.x === end.x && n.y === end.y) {
+	            return { path: currPath.concat([n]), closedSet: closedSet.concat([currNode]) };
+	          }
+	
+	          if (!n.visited) {
+	            n.visited = true;
+	            n.parent = currNode;
+	            stack.push([n, currPath.concat([n])]);
+	          }
+	        }
+	
+	        currNode.closed = true;
+	        closedSet.push(currNode);
+	      }
+	    }
+	  }]);
+	
+	  return DFS;
+	}();
+	
+	exports.default = DFS;
+
+/***/ }
+/******/ ]);
 //# sourceMappingURL=bundle.js.map
