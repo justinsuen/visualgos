@@ -14,18 +14,18 @@ module.exports = {
       query: {
         presets: ['es2015']
       }
-    }],
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
-        }
-      }),
-      new webpack.optimize.UglifyJsPlugin()
-    ]
+    }]
   },
   devtool: 'source-map',
   resolve: {
     extensions: ['', '.js', '.jsx']
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 };
